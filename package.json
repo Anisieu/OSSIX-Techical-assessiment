@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "description": "signalling server for webrtc clients",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "init_db": "node init_db.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Anisieu/OSSIX-Techical-assessiment"
+  },
+  "author": "Anisie",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "pg": "^8.5.1",
+    "uuid": "^3.4.0",
+    "ws": "^7.2.1"
+  },
+  "engines": {
+    "node": ">=8.16"
+  },
+  "devDependencies": {
+    "errorhandler": "^1.5.1"
+  }
+}
