@@ -1,10 +1,12 @@
 require("dotenv").config();
 const WebSocket = require("ws");
 const http = require("http");
+const fs = require('fs');
+const path = require("path");
 const uuidv4 = require("uuid/v4");
 const { Client } = require("pg");
 
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 5000;
 const connectionString = process.env.DB_URL;
 
 // Database connection
@@ -27,10 +29,27 @@ const savemessage = ({ sender, receiver, message }) => {
   // .catch((e) => console.error(e.stack));
 };
 
-var server = http.createServer(function (request, response) {
-  console.log(new Date() + " Received request for " + request.url);
-  response.writeHead(404);
-  response.end();
+
+const staticBasePath = './client/build/';
+
+const server = http.createServer(function (req, res) {
+  const resolvedBase = path.resolve(staticBasePath);
+  if (req.url === '/') req.url = '/index.html'
+  const safeSuffix = path.normalize(req.url).replace(/^(\.\.[\/\\])+/, '');
+  const fileLoc = path.join(resolvedBase, safeSuffix);
+  
+  fs.readFile(fileLoc, function(err, data) {
+    if (err) {
+        res.writeHead(404, 'Not Found');
+        res.write('404: File Not Found!');
+        return res.end();
+    }
+    
+    res.statusCode = 200;
+
+    res.write(data);
+    return res.end();
+  });
 });
 
 //initialize the WebSocket server instance

@@ -28,5 +28,15 @@ the database structure is given in `db_dum.sql`
 Install the dependencies
 
 ### `yarn start` or `npm start`
-Start the server by default on [http://localhost:9000](http://localhost:9000)
+Start the server by default on [http://localhost:5000](http://localhost:5000)
 
+### `yarn build` 
+Build static file for the server
+
+# Deploy
+
+Open project folder in your terminal and type the following:
+
+heroku create
+git push heroku master
+heroku open

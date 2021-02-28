@@ -31,7 +31,9 @@ const Chat = ({ connection, updateConnection, channel, updateChannel }) => {
   const [messages, setMessages] = useState({});
 
   useEffect(() => {
-    webSocket.current = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+    let wsurl = process.env.REACT_APP_WEBSOCKET_URL
+    if(wsurl) wsurl = 'ws://' + window.location.hostname + ':' + window.location.port
+    webSocket.current = new WebSocket(wsurl);
     webSocket.current.onmessage = (message) => {
       const data = JSON.parse(message.data);
       setSocketMessages((prev) => [...prev, data]);
